@@ -1,4 +1,1 @@
-
-RSpec.describe Middlewares::Routes do
-
-end
+# frozen_string_literal: true
