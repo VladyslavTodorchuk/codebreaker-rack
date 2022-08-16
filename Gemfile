@@ -15,3 +15,5 @@ gem 'rack'
 gem 'rackup'
 
 gem 'rspec'
+
+gem 'yaml'
