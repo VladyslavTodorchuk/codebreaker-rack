@@ -26,7 +26,7 @@
               </p>
             </div>
             <hr class="mb-4">
-            <form method="post" action="">
+            <form method="post" action="http://localhost:9292/start_game">
               <div class="form-group">
                 <label for="player_name" class="lead label">Player's name:</label>
                 <input class="form-control" name="player_name" id="player_name" pattern="^[\w\u0400-\u04ff]{3,20}$" placeholder="Your name" autofocus="" required="">
@@ -36,7 +36,7 @@
                 <select class="custom-select" name="level" required="">
                   <option value="">Choose game level...</option>
                   <option value="easy">Easy</option>
-                  <option value="middle">Middle</option>
+                  <option value="medium">Medium</option>
                   <option value="hell">Hell</option>
                 </select>
               </div>
@@ -47,8 +47,8 @@
                 Start the game!
               </button>
               <span class="float-right">
-                <a class="btn btn-warning btn-lg" href="#" role="button">Rules</a>
-                <a class="btn btn-success btn-lg" href="statistics.html.erb" role="button">Statistics</a>
+                <a class="btn btn-warning btn-lg" href="/rules" role="button">Rules</a>
+                <a class="btn btn-success btn-lg" href="/statistics" role="button">Statistics</a>
               </span>
             </form>
           </div>

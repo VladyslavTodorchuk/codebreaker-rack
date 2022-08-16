@@ -1,3 +1,10 @@
+GIT
+  remote: git@github.com:VladyslavTodorchuk/CodeBreaker.git
+  revision: 0fe29646b764331e81420e17019035fee1ab7899
+  branch: development
+  specs:
+    codebreaker (0.1.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -11,6 +18,10 @@ GEM
     parallel (1.22.1)
     parser (3.1.2.1)
       ast (~> 2.4.1)
+    rack (2.2.4)
+    rackup (0.1.0)
+      rack
+      webrick
     rainbow (3.1.1)
     regexp_parser (2.5.0)
     rexml (3.2.5)
@@ -44,12 +55,16 @@ GEM
       sexp_processor (~> 4.16)
     sexp_processor (4.16.1)
     unicode-display_width (2.2.0)
+    webrick (1.7.0)
 
 PLATFORMS
   x86_64-darwin-21
 
 DEPENDENCIES
+  codebreaker!
   fasterer
+  rack
+  rackup
   rspec
   rubocop
 
