@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 require 'codebreaker'
 require 'erb'
@@ -20,15 +21,49 @@ module Middlewares
       case @request.path
       when '/' then menu
       when '/statistics' then statistics
-      when '/game' then Rack::Response.new(render('game.html.erb'))
-      when '/lose' then Rack::Response.new(render('lose.html.erb'))
+      when '/game' then game
+      when '/lose' then lose
+      when '/leave_game' then leave_game
       when '/start_game' then start_game
       when '/submit_answer' then submit_answer
       when '/receive_hint' then receive_hint
-      when '/win' then Rack::Response.new(render('win.html.erb'))
-      else
-        Rack::Response.new(render('error_404.html.erb'), 404)
+      when '/win' then win
+      else Rack::Response.new(render('error_404.html.erb'), 404)
       end
+    end
+
+    def leave_game
+      return redirect '/' unless @request.session.key?(:game_obj)
+
+      @request.session.delete(:game_obj)
+
+      redirect '/'
+    end
+
+    def game
+      return redirect '/' unless @request.session.key?(:game_obj)
+
+      Rack::Response.new(render('game.html.erb'))
+    end
+
+    def win
+      return redirect '/' unless @request.session.key?(:game_obj)
+
+      if @request.session[:game_obj].game.total_attempts > @request.session[:game_obj].game.used_attempts
+        return redirect '/game'
+      end
+
+      Rack::Response.new(render('win.html.erb'))
+    end
+
+    def lose
+      return redirect '/' unless @request.session.key?(:game_obj)
+
+      if @request.session[:game_obj].game.total_attempts != @request.session[:game_obj].game.used_attempts
+        return redirect '/game'
+      end
+
+      Rack::Response.new(render('lose.html.erb'))
     end
 
     def menu
@@ -40,29 +75,28 @@ module Middlewares
       name = @request.params['player_name']
       difficulty = @request.params['level']
 
-      @request.session[:game_obj] = CodeBreaker::CodeBreakerGame.new(name, difficulty)
-      @request.session[:hints] = []
-      puts @request.session[:game_obj].game.secret_code
-      Rack::Response.new { |response| response.redirect("/game") }
+      begin
+        @request.session[:game_obj] = CodeBreaker::CodeBreakerGame.new(name, difficulty)
+        @request.session[:hints] = []
+        puts @request.session[:game_obj].game.secret_code
+        redirect '/game'
+      rescue CodeBreaker::ValidatorError => e
+        @request.session[:error] = e
+        redirect '/'
+      end
     end
 
     def submit_answer
-      begin
-        number = @request.params['number'].to_i
-        result = @request.session[:game_obj].action(:guess, number)
-        @request.session[:result] = result.chars
+      result = request_params_game
 
-        if result == '++++'
-          @request.session[:rating].rating << { game: @request.session[:game_obj].game,
-                                                date: Date.parse(DateTime.now.to_s) }
-          save_file
-          Rack::Response.new { |response| response.redirect("/win") }
-        else
-          Rack::Response.new { |response| response.redirect("/game") }
-        end
-      rescue CodeBreaker::NoAttemptsLeftError => e
-        Rack::Response.new { |response| response.redirect("/lose") }
+      if result == '++++'
+        add_game_to_rating
+        save_file
+        redirect '/win'
       end
+      redirect '/game'
+    rescue CodeBreaker::NoAttemptsLeftError
+      redirect '/lose'
     end
 
     def statistics
@@ -79,22 +113,33 @@ module Middlewares
     end
 
     def receive_hint
-      begin
-        @request.session[:hints] << @request.session[:game_obj].action(:hint)
+      @request.session[:hints] << @request.session[:game_obj].action(:hint)
 
-        Rack::Response.new { |response| response.redirect("/game") }
-      rescue CodeBreaker::NoHintsLeftError => e
-        Rack::Response.new { |response| response.redirect("/game") }
-      end
+      redirect '/game'
+    rescue CodeBreaker::NoHintsLeftError
+      redirect '/game'
     end
 
-    def redirect(address = '')
-      Rack::Response.new { |response| response.redirect("/#{address}") }
+    def add_game_to_rating
+      @request.session[:rating].rating << { game: @request.session[:game_obj].game,
+                                            date: Date.parse(DateTime.now.to_s) }
+    end
+
+    def request_params_game
+      number = @request.params['number'].to_i
+      result = @request.session[:game_obj].action(:guess, number)
+      @request.session[:result] = result.chars
+
+      result
     end
 
     def render(template)
       path = File.expand_path("../../../templates/#{template}", __FILE__)
       ERB.new(File.read(path)).result(binding)
+    end
+
+    def redirect(path)
+      Rack::Response.new { |response| response.redirect(path) }
     end
   end
 end

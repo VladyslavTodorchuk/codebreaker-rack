@@ -20,6 +20,14 @@
                 <h1 class="text-white title">Codebreaker 2022</h1>
               </div>
             </div>
+            <div>
+              <% if @request.session.key?(:error) %>
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                  <%= @request.session[:error] %>
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+              <%end %>
+            </div>
             <div class="row">
               <p class="lead text-white-70">
                 Try to guess 4-digit number, that consists of numbers in a range from 1 to 6.
@@ -43,9 +51,13 @@
 
               <hr class="mb-4">
 
-              <button type="submit" class="btn btn-primary btn-lg">
-                Start the game!
-              </button>
+              <% if @request.session.key?(:game_obj) %>
+                <a class="btn btn-warning btn-lg" href="/game" role="button">Continue Game</a>
+              <%else %>
+                <button type="submit" class="btn btn-primary btn-lg">
+                  Start the game!
+                </button>
+              <%end %>
               <span class="float-right">
                 <a class="btn btn-warning btn-lg" href="/rules" role="button">Rules</a>
                 <a class="btn btn-success btn-lg" href="/statistics" role="button">Statistics</a>
