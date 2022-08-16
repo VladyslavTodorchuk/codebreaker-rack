@@ -1,0 +1,57 @@
+{
+  "RSpec": {
+    "coverage": {
+      "/Users/vladtodorchuk/Desktop/RubyGarage/Tasks/Task 5/spec/middlewares/routes_spec.rb": {
+        "lines": [
+          null,
+          1,
+          null,
+          null
+        ]
+      },
+      "/Users/vladtodorchuk/Desktop/RubyGarage/Tasks/Task 5/spec/services/data_spec.rb": {
+        "lines": [
+          null,
+          null,
+          1,
+          5,
+          5,
+          5,
+          null,
+          1,
+          1,
+          1,
+          4,
+          null,
+          4,
+          4,
+          null,
+          4,
+          null,
+          null,
+          5,
+          null,
+          1,
+          1,
+          null,
+          null,
+          1,
+          1,
+          null,
+          null,
+          1,
+          1,
+          null,
+          null,
+          1,
+          1,
+          null,
+          null,
+          null,
+          null
+        ]
+      }
+    },
+    "timestamp": 1660655260
+  }
+}

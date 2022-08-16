@@ -10,6 +10,8 @@ gem 'rubocop'
 
 gem 'rubocop-rspec'
 
+gem 'simplecov', require: false, group: :test
+
 gem 'fasterer'
 
 gem 'rack'
