@@ -3,9 +3,6 @@
     "coverage": {
       "/Users/vladtodorchuk/Desktop/RubyGarage/Tasks/Task 5/spec/middlewares/routes_spec.rb": {
         "lines": [
-          null,
-          1,
-          null,
           null
         ]
       },
@@ -52,6 +49,6 @@
         ]
       }
     },
-    "timestamp": 1660655260
+    "timestamp": 1660655478
   }
 }

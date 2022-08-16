@@ -40,6 +40,17 @@ commands:
           name: fasterer
           command: bundle exec fasterer
 
+  run_rspec:
+    description: command to start specs
+    steps:
+      - run:
+          name: specs
+          command: bundle exec rspec
+      - store_artifacts:
+          path: ~/codebreaker/coverage
+          destination: coverage
+
+
 jobs:
   lintering:
     executor: default
@@ -49,7 +60,16 @@ jobs:
       - run_rubocop
       - run_fasterer
 
+  rspec:
+    executor: default
+    steps:
+      - defaults
+      - run_rspec
+
 workflows:
   build:
     jobs:
       - lintering
+      - rspec:
+          requires:
+            - lintering
