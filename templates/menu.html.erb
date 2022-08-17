@@ -22,12 +22,6 @@
               </div>
             </div>
             <div>
-              <% if @request.session.key?(:error) %>
-                <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                  <%= @request.session[:error] %>
-                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-              <%end %>
             </div>
             <div class="row">
               <p class="lead text-white-70">

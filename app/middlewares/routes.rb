@@ -94,10 +94,8 @@ module Middlewares
 
       begin
         initialize_game(name, difficulty)
-        # puts @request.session[:game_obj].game.secret_code
         redirect '/game'
       rescue CodeBreaker::ValidatorError => e
-        @request.session[:error] = e
         redirect '/'
       end
     end
