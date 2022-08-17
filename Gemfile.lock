@@ -1,5 +1,5 @@
 GIT
-  remote: git@github.com:VladyslavTodorchuk/CodeBreaker.git
+  remote: https://VladyslavTodorchuk:Heroku@github.com/VladyslavTodorchuk/CodeBreaker.git
   revision: 6b1dd52e9d1284891a6e97c611c8db791bc21f7f
   branch: development
   specs:

@@ -4,7 +4,8 @@ source 'https://rubygems.org'
 
 ruby '3.1.2'
 
-gem 'codebreaker', git: 'git@github.com:VladyslavTodorchuk/CodeBreaker.git', branch: 'development'
+gem 'codebreaker', git: 'https://VladyslavTodorchuk:Heroku@github.com/VladyslavTodorchuk/CodeBreaker.git',
+                   branch: 'development'
 
 gem 'rubocop'
 
