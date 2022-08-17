@@ -64,9 +64,10 @@
                         <button type="button" class="btn btn-success marks" disabled>+</button>
                       <% elsif answer == '-'%>
                         <button type="button" class="btn btn-primary marks" disabled>-</button>
-                      <% elsif answer == ' ' %>
-                        <button type="button" class="btn btn-danger marks" disabled>x</button>
                       <% end %>
+                    <% end %>
+                    <% (4 - @request.session[:result].length).times do %>
+                      <button type="button" class="btn btn-danger marks" disabled>x</button>
                     <% end %>
                   <% end %>
                 </div>
