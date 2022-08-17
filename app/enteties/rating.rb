@@ -9,22 +9,22 @@ module Entities
     end
 
     def hell_games
-      @rating.select { |hash| hash[:game].difficulty == 'hell' }
+      @rating.select { |hash| hash[:difficulty] == 'hell' }
     end
 
     def medium_games
-      @rating.select { |hash| hash[:game].difficulty == 'medium' }
+      @rating.select { |hash| hash[:difficulty] == 'medium' }
     end
 
     def easy_games
-      @rating.select { |hash| hash[:game].difficulty == 'easy' }
+      @rating.select { |hash| hash[:difficulty] == 'easy' }
     end
 
     def sort_games(games, top_rating = 1)
       games = games.sort_by! do |elem|
-        [elem[:game].used_attempts, elem[:game].used_hints, elem[:game].name]
+        [elem[:used_attempts], elem[:used_hints], elem[:name]]
       end
-      games.uniq { |u| u[:game].name }.first(top_rating)
+      games.uniq { |u| u[:name] }.first(top_rating)
     end
 
     def all_games

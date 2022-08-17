@@ -36,7 +36,7 @@
                 <button type="button" class="btn btn-primary" disabled>
                   Attempts:
                   <span class="badge badge-light">
-                    <%= @request.session[:game_obj].game.total_attempts - @request.session[:game_obj].game.used_attempts %>
+                    <%= (@request.session[:game_obj].game.total_attempts - @request.session[:game_obj].game.used_attempts) + 1 %>
                   </span>
                 </button>
               </div>
@@ -54,7 +54,7 @@
 
             <form method="post" action="http://localhost:9292/submit_answer">
               <div class="form-group">
-                <input class="form-control guess_input" name="number" pattern="^[1-6]{4}$" placeholder="1234" required="" autocomplete="off">
+                <input class="form-control guess_input" name="number" pattern="^[1-6]{4}$" placeholder="<%= @request.session.key?(:number) ? @request.session[:number] : 1234 %>" required="" autocomplete="off">
               </div>
               <div class="form-group guess_markers_list">
                 <div id="guess_marker">
@@ -86,9 +86,6 @@
                 <% end %>
               </a>
             </form>
-            <a class="btn btn-danger btn-lg float-right mt-sm-5" role="button" href="/leave_game">
-              Leave Game
-            </a>
           </div>
         </div>
        </div>

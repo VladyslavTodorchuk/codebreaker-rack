@@ -10,14 +10,16 @@ gem 'rubocop'
 
 gem 'rubocop-rspec'
 
-gem 'simplecov', require: false, group: :test
-
-gem 'fasterer'
-
 gem 'rack'
+
+gem 'rack-test'
 
 gem 'rackup'
 
 gem 'rspec'
+
+gem 'simplecov', require: false, group: :test
+
+gem 'fasterer'
 
 gem 'yaml'

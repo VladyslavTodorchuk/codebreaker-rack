@@ -7,13 +7,13 @@ Metrics/MethodLength:
   Max: 13
 
 Metrics/ClassLength:
-  Max: 120
+  Max: 130
 
 Style/Documentation:
   Enabled: false
 
 Metrics/AbcSize:
-  Max: 19
+  Max: 25
 
 Metrics/CyclomaticComplexity:
   Max: 13

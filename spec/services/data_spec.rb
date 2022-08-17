@@ -11,27 +11,18 @@ RSpec.describe 'SaveService' do
         FileUtils.mkdir './tmp'
 
         data = CodeBreaker::Game.new name: 'Vlad', difficulty: 'easy', secret_code: [1, 1, 1, 1]
-        table.rating << data
-
+        table.rating << {
+          name: data.name, difficulty: data.difficulty, total_attempts: data.total_attempts,
+          used_attempts: data.used_attempts, total_hints: data.total_hints,
+          used_hints: data.used_hints, date: Date.parse(DateTime.now.to_s)
+        }
         save.save
       end
 
       after { FileUtils.remove_dir './tmp' }
 
       it do
-        expect(load.load.rating[0].used_attempts).to eq(table.rating[0].used_attempts)
-      end
-
-      it do
-        expect(load.load.rating[0].used_hints).to eq(table.rating[0].used_hints)
-      end
-
-      it do
-        expect(load.load.rating[0].name).to eq(table.rating[0].name)
-      end
-
-      it do
-        expect(load.load.rating[0].difficulty).to eq(table.rating[0].difficulty)
+        expect(load.load.rating).to match_array(table.rating)
       end
     end
   end

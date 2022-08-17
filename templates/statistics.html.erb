@@ -40,10 +40,10 @@
               <% else %>
                 <%  @request.session[:statistics].each do |player| %>
                   <tr>
-                    <td><%= player[:game].name %></td>
-                    <td><%= player[:game].difficulty %></td>
-                    <td><%= player[:game].total_attempts %>/<%= player[:game].used_attempts %></td>
-                    <td><%= player[:game].total_hints %>/<%= player[:game].used_hints %></td>
+                    <td><%= player[:name] %></td>
+                    <td><%= player[:difficulty] %></td>
+                    <td><%= player[:total_attempts] %>/<%= player[:used_attempts] %></td>
+                    <td><%= player[:total_hints] %>/<%= player[:used_hints] %></td>
                     <td><%= player[:date] %></td>
                   </tr>
                 <%end %>
