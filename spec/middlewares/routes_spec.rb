@@ -46,13 +46,6 @@ RSpec.describe Middlewares::Routes do
       get '/submit_answer', number: 1243
       expect(last_response.header['Location']).to eq('/lose')
     end
-
-    it 'redirects to win page' do
-      code_breaker.game.instance_variable_set(:@secret_code, [1, 2, 3, 4])
-      env('rack.session', game_obj: code_breaker)
-      get '/submit_answer', number: 1234
-      expect(last_response.header['Location']).to eq('/win')
-    end
   end
 
   context 'when game lose' do
@@ -79,20 +72,19 @@ RSpec.describe Middlewares::Routes do
   end
 
   context 'when game win' do
-    before do
-      env('rack.session', game_obj: code_breaker)
-    end
+    before { env('rack.session', game_obj: code_breaker) }
 
     it 'redirects to game if attempts exist' do
       get '/win'
       expect(last_response.header['Location']).to eq('/game')
     end
 
-    # it 'shows win page' do
-    #  env('rack.session', game_obj: code_breaker, is_win: true)
-    #  get '/win'
-    #  expect(last_response.header['Location']).to eq('/win')
-    # end
+    it 'shows win page' do
+      code_breaker.game.instance_variable_set(:@secret_code, [1, 2, 3, 4])
+      env('rack.session', game_obj: code_breaker)
+      get '/submit_answer', number: 1234
+      expect(last_response.header['Location']).to eq('/win')
+    end
   end
 
   context 'when game show hint' do
@@ -107,7 +99,7 @@ RSpec.describe Middlewares::Routes do
   end
 
   context 'when game start' do
-    context 'when no name parameter' do
+    context 'when without parameters' do
       it 'returns redirect' do
         get '/start_game'
         expect(last_response).to be_redirect
