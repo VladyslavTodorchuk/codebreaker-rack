@@ -89,7 +89,7 @@ module Middlewares
     def start_game
       return redirect '/game' if @request.session.key?(:game_obj) && @request.session.key?(:is_win)
 
-      name = @request.params["player_name"]
+      name = @request.params['player_name']
       difficulty = @request.params['level']
 
       begin
