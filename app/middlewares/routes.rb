@@ -4,6 +4,7 @@ require 'codebreaker'
 require 'erb'
 require 'date'
 
+require_relative '../enteties/rating'
 require_relative '../services/load_service'
 require_relative '../services/save_service'
 
