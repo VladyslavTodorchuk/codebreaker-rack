@@ -92,8 +92,7 @@ RSpec.describe Middlewares::Routes do
     #  env('rack.session', game_obj: code_breaker, is_win: true)
     #  get '/win'
     #  expect(last_response.header['Location']).to eq('/win')
-    #end
-
+    # end
   end
 
   context 'when game show hint' do
