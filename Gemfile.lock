@@ -76,15 +76,15 @@ PLATFORMS
 
 DEPENDENCIES
   codebreaker!
-  fasterer
-  rack
-  rack-test
+  fasterer (~> 0.10.0)
+  rack (~> 2.2, >= 2.2.4)
+  rack-test (~> 2.0, >= 2.0.2)
   rackup
-  rspec
-  rubocop
-  rubocop-rspec
-  simplecov
-  yaml
+  rspec (~> 3.11)
+  rubocop (~> 1.32)
+  rubocop-rspec (~> 2.12, >= 2.12.1)
+  simplecov (~> 0.21.2)
+  yaml (~> 0.2.0)
 
 RUBY VERSION
    ruby 3.1.2p20
