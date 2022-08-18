@@ -38,14 +38,16 @@
               <tbody>
               <% if @request.session[:statistics].nil? %>
               <% else %>
-                <%  @request.session[:statistics].each do |player| %>
-                  <tr>
-                    <td><%= player[:name] %></td>
-                    <td><%= player[:difficulty] %></td>
-                    <td><%= player[:total_attempts] %>/<%= player[:used_attempts] %></td>
-                    <td><%= player[:total_hints] %>/<%= player[:used_hints] %></td>
-                    <td><%= player[:date] %></td>
-                  </tr>
+                <%  @request.session[:statistics].each do |_k, games| %>
+                  <% games.each do |player| %>
+                    <tr>
+                      <td><%= player[:name] %></td>
+                      <td><%= player[:difficulty] %></td>
+                      <td><%= player[:total_attempts] %>/<%= player[:used_attempts] %></td>
+                      <td><%= player[:total_hints] %>/<%= player[:used_hints] %></td>
+                      <td><%= player[:date] %></td>
+                    </tr>
+                  <% end %>
                 <%end %>
               <% end %>
               </tbody>
