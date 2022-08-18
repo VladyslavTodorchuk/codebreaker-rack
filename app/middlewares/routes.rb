@@ -95,7 +95,7 @@ module Middlewares
       begin
         initialize_game(name, difficulty)
         redirect '/game'
-      rescue CodeBreaker::ValidatorError => e
+      rescue CodeBreaker::ValidatorError
         redirect '/'
       end
     end

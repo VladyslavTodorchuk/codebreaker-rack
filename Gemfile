@@ -24,6 +24,3 @@ gem 'rack', '~> 2.2', '>= 2.2.4'
 gem 'rack-test', '~> 2.0', '>= 2.0.2'
 
 gem 'rackup'
-
-
-
