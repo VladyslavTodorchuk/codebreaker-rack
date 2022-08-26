@@ -13,7 +13,7 @@ module Entities
     end
 
     def group_games
-      rating.group_by {|game| game[:difficulty] }
+      rating.group_by { |game| game[:difficulty] }
     end
 
     def sort_games(games_hash, top_rating = 1)
