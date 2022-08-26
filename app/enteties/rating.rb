@@ -9,19 +9,11 @@ module Entities
     end
 
     def all_games
-      sort_games({ easy: easy_games, medium: medium_games, hell: hell_games }, 3)
+      sort_games(group_games, 3)
     end
 
-    def hell_games
-      rating.select { |hash| hash[:difficulty] == 'hell' }
-    end
-
-    def medium_games
-      rating.select { |hash| hash[:difficulty] == 'medium' }
-    end
-
-    def easy_games
-      rating.select { |hash| hash[:difficulty] == 'easy' }
+    def group_games
+      rating.group_by {|game| game[:difficulty] }
     end
 
     def sort_games(games_hash, top_rating = 1)

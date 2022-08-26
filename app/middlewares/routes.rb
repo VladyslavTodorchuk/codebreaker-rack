@@ -109,7 +109,6 @@ module Middlewares
 
     def submit_answer
       result = request_params_game
-
       if result == '++++'
         add_game_to_rating
         save_file

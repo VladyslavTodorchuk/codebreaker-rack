@@ -36,7 +36,7 @@
                 <button type="button" class="btn btn-primary" disabled>
                   Attempts:
                   <span class="badge badge-light">
-                    <%= (@request.session[:game_obj].game.total_attempts - @request.session[:game_obj].game.used_attempts) + 1 %>
+                    <%= (@request.session[:game_obj].game.total_attempts - @request.session[:game_obj].game.used_attempts) %>
                   </span>
                 </button>
               </div>
