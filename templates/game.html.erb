@@ -19,7 +19,7 @@
               </div>
             </div>
             <p class="lead text-white-70">
-              Hello, test!
+              Hello, <%= @request.session[:game_obj].game.name.capitalize %>!
               Try to guess 4-digit number, that consists of numbers in a range from 1 to 6.
             </p>
             <hr class="mb-4">
@@ -28,51 +28,63 @@
                 <button type="button" class="btn btn-primary" disabled>
                   Level:
                   <span class="badge badge-light">
-                    Simple
+                    <%= @request.session[:game_obj].game.difficulty.capitalize %>
                   </span>
                 </button>
               </div>
               <div class="col text-center button">
                 <button type="button" class="btn btn-primary" disabled>
                   Attempts:
-                  <span class="badge badge-light">4</span>
+                  <span class="badge badge-light">
+                    <%= (@request.session[:game_obj].game.total_attempts - @request.session[:game_obj].game.used_attempts) %>
+                  </span>
                 </button>
               </div>
 
               <div class="col button">
                 <button type="button" class="btn btn-primary float-right">
                   Hints:
-                  <span class="badge badge-light">1</span>
+                  <span class="badge badge-light">
+                    <%= @request.session[:game_obj].game.total_hints - @request.session[:game_obj].game.used_hints %>
+                  </span>
                 </button>
               </div>
             </div>
             <hr class="mb-4">
 
-            <form method="post" action="http://localhost:9292/submit_answer">
+            <form method="post" action="/submit_answer">
               <div class="form-group">
-                <input class="form-control guess_input" name="number" pattern="^[1-6]{4}$" placeholder="1234" required="" autocomplete="off">
+                <input class="form-control guess_input" name="number" pattern="^[1-6]{4}$" placeholder="<%= @request.session.key?(:number) ? @request.session[:number] : 1234 %>" required="" autocomplete="off">
               </div>
               <div class="form-group guess_markers_list">
                 <div id="guess_marker">
-                  <button type="button" class="btn btn-success marks" disabled>+</button>
-                  <button type="button" class="btn btn-primary marks" disabled>-</button>
-                  <button type="button" class="btn btn-danger marks" disabled>x</button>
-                  <button type="button" class="btn btn-danger marks" disabled>x</button>
+                  <% if @request.session.key?(:result) %>
+                    <% @request.session[:result].each do |answer| %>
+                      <% if answer == '+' %>
+                        <button type="button" class="btn btn-success marks" disabled>+</button>
+                      <% elsif answer == '-'%>
+                        <button type="button" class="btn btn-primary marks" disabled>-</button>
+                      <% end %>
+                    <% end %>
+                    <% (4 - @request.session[:result].length).times do %>
+                      <button type="button" class="btn btn-danger marks" disabled>x</button>
+                    <% end %>
+                  <% end %>
                 </div>
               </div>
               <hr class="mb-4">
-
               <button type="submit" class="btn btn-primary btn-lg">
                 Submit
               </button>
-              <a class="btn btn-warning btn-lg float-right" role="button">
+              <a class="btn btn-warning btn-lg float-right" role="button" href="/receive_hint">
                 Show hint!
-                <span class="badge badge-light">
-                  6
-                </span>
-                <span class="badge badge-light">
-                  3
-                </span>
+                <% if  @request.session.key?(:hints) %>
+                  <%  @request.session[:hints].each do |hint| %>
+                    <span class="badge badge-light">
+                      <%=  hint %>
+                    </span>
+                  <% end %>
+                <% end %>
               </a>
             </form>
           </div>

@@ -1,0 +1,75 @@
+version: 2.1
+
+executors:
+  default:
+    working_directory: ~/codebreaker
+    description: The official CircleCI Ruby Docker image
+    docker:
+      - image: cimg/ruby:3.1.2
+
+cashes:
+  - &bundle_cache_full v2-codebreaker-{{ checksum "Gemfile.lock" }}
+  - &bundle_cache v2-codebreaker
+
+commands:
+  defaults:
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - *bundle_cache_full
+            - *bundle_cache
+      - run: bundle install --path vendor/bundle
+      - save_cache:
+          key: *bundle_cache_full
+          paths:
+            - vendor/bundle
+  run_rubocop:
+    description: command to start rubocop
+    steps:
+      - run:
+          name: rubocop
+          command: bundle exec rubocop
+
+  run_fasterer:
+    description: command to start fasterer
+    steps:
+      - attach_workspace:
+          at: ~/
+      - run:
+          name: fasterer
+          command: bundle exec fasterer
+
+  run_rspec:
+    description: command to start specs
+    steps:
+      - run:
+          name: specs
+          command: bundle exec rspec
+      - store_artifacts:
+          path: ~/codebreaker/coverage
+          destination: coverage
+
+
+jobs:
+  lintering:
+    executor: default
+    parallelism: 2
+    steps:
+      - defaults
+      - run_rubocop
+      - run_fasterer
+
+  rspec:
+    executor: default
+    steps:
+      - defaults
+      - run_rspec
+
+workflows:
+  build:
+    jobs:
+      - lintering
+      - rspec:
+          requires:
+            - lintering

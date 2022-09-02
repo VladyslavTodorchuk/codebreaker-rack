@@ -1,0 +1,19 @@
+require: rubocop-rspec
+
+Metrics/LineLength:
+  Max: 121
+
+Metrics/MethodLength:
+  Max: 13
+
+Metrics/ClassLength:
+  Max: 130
+
+Style/Documentation:
+  Enabled: false
+
+Metrics/AbcSize:
+  Max: 25
+
+Metrics/CyclomaticComplexity:
+  Max: 13
