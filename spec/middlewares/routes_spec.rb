@@ -11,7 +11,6 @@ RSpec.describe Middlewares::Routes do
     CodeBreaker::CodeBreakerGame.new('Vlad', 'easy')
   end
 
-
   before do
     Constants.const_set(:LOAD_FILE_PATH, './spec/data.yml')
   end
