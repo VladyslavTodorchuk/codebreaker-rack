@@ -7,6 +7,7 @@ require 'date'
 require_relative '../enteties/rating'
 require_relative '../services/load_service'
 require_relative '../services/save_service'
+require_relative '../constants'
 
 module Middlewares
   class Routes
@@ -137,11 +138,11 @@ module Middlewares
     end
 
     def load_file
-      Services::LoadService.new('./storage/data.yml').load
+      Services::LoadService.new(Constants::LOAD_FILE_PATH).load
     end
 
     def save_file
-      Services::SaveService.new(@rating, './storage/data.yml').save
+      Services::SaveService.new(@rating, Constants::LOAD_FILE_PATH).save
     end
 
     def receive_hint

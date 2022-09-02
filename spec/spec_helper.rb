@@ -8,6 +8,7 @@ require_relative '../app/enteties/rating'
 require_relative '../app/services/load_service'
 require_relative '../app/services/save_service'
 require_relative '../app/middlewares/routes'
+require_relative '../app/constants'
 
 SimpleCov.start do
   minimum_coverage 95

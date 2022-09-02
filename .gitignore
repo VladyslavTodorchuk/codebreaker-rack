@@ -1,4 +1,4 @@
 .idea
 .DS_Store
 coverage
-storage
+storage/data.yml
