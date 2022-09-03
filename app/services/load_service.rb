@@ -12,6 +12,7 @@ module Services
     end
 
     def load
+      File.open(@yml_file, 'a+')
       YAML.load_file(@yml_file,
                      permitted_classes: [Entities::Rating, CodeBreaker::Game, Symbol, Date],
                      aliases: true)
